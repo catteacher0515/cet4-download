@@ -39,9 +39,14 @@ test("试卷预览页输出在线预览和下载入口", () => {
   const previewHtml = readFileSync(resolve(process.cwd(), "dist/papers/2025/12/1/index.html"), "utf8");
 
   assert.match(previewHtml, /2025年12月英语四级真题\(第1套\)/);
-  assert.match(previewHtml, /在线预览/);
-  assert.match(previewHtml, /下载 PDF/);
-  assert.match(previewHtml, /iframe/);
+  assert.match(previewHtml, /reader-pdfjs/);
+  assert.match(previewHtml, /data-pdf-url="\/papers\/2025\/12\/cet4-2025-12-set-01\.pdf"/);
+  assert.doesNotMatch(previewHtml, /reader-topbar/);
+  assert.match(previewHtml, /reader-audio-bar/);
+  assert.match(previewHtml, /reader-audio-bar__toggle/);
+  assert.match(previewHtml, /reader-audio-bar__seek/);
+  assert.match(previewHtml, /reader-audio-bar__time-current/);
+  assert.doesNotMatch(previewHtml, /iframe/);
   assert.match(previewHtml, /听力音频/);
   assert.match(previewHtml, /audio/);
   assert.match(previewHtml, /audio\/2025\/12\/cet4-2025-12-set-01\.mp4/);
