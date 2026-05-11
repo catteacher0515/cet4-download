@@ -1,0 +1,22 @@
+{
+  "name": "cet4-download",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "test": "tsx --test tests/**/*.test.ts",
+    "validate:content": "tsx scripts/validate-content.ts",
+    "check": "astro check && npm run test"
+  },
+  "dependencies": {
+    "astro": "^6.3.1"
+  },
+  "devDependencies": {
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3"
+  }
+}
