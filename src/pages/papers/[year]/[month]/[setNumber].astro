@@ -84,10 +84,6 @@ const { paper } = Astro.props;
           data-audio-seek
           aria-label="音频播放进度"
         />
-        <div class="reader-audio-bar__actions">
-          <button class="reader-audio-bar__text" type="button">听力原文</button>
-          <button class="reader-audio-bar__text" type="button">答案区</button>
-        </div>
         <audio class="reader-audio-bar__media" preload="metadata" data-audio-media>
           <source src={paper.audioPath} type="audio/mp4" />
           你的浏览器暂不支持音频播放，请直接下载后使用。

@@ -551,7 +551,7 @@ img {
   bottom: 18px;
   z-index: 20;
   display: grid;
-  grid-template-columns: auto auto minmax(0, 1fr) auto;
+  grid-template-columns: auto auto minmax(0, 1fr);
   gap: 16px;
   align-items: center;
   padding: 10px 16px;
@@ -584,19 +584,6 @@ img {
 .reader-audio-bar__seek {
   width: 100%;
   accent-color: #f0ede6;
-}
-
-.reader-audio-bar__actions {
-  display: inline-flex;
-  gap: 18px;
-}
-
-.reader-audio-bar__text {
-  border: none;
-  background: transparent;
-  color: #f0ede6;
-  font-size: 14px;
-  cursor: pointer;
 }
 
 .reader-audio-bar__media {
@@ -689,7 +676,6 @@ img {
     border-radius: 20px;
   }
 
-  .reader-audio-bar__actions,
   .reader-audio-bar__time {
     grid-column: span 2;
   }

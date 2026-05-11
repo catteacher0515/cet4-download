@@ -193,8 +193,33 @@ function initAudioBar(root: HTMLElement) {
     return;
   }
 
+  let isScrubbing = false;
+
   const syncToggle = () => {
     toggle.textContent = media.paused ? "▶" : "❚❚";
+  };
+
+  const syncDuration = () => {
+    const duration = Number.isFinite(media.duration) ? media.duration : 0;
+    seek.max = String(duration);
+    total.textContent = formatTime(duration);
+  };
+
+  const syncCurrentTime = () => {
+    if (!isScrubbing) {
+      seek.value = String(media.currentTime);
+    }
+
+    current.textContent = formatTime(media.currentTime);
+  };
+
+  const commitSeek = () => {
+    const targetTime = Number(seek.value);
+
+    if (Number.isFinite(targetTime)) {
+      media.currentTime = targetTime;
+      current.textContent = formatTime(targetTime);
+    }
   };
 
   toggle.addEventListener("click", async () => {
@@ -207,26 +232,48 @@ function initAudioBar(root: HTMLElement) {
     syncToggle();
   });
 
-  media.addEventListener("loadedmetadata", () => {
-    seek.max = String(media.duration || 0);
-    total.textContent = formatTime(media.duration);
-  });
+  media.addEventListener("loadedmetadata", syncDuration);
+  media.addEventListener("loadeddata", syncDuration);
+  media.addEventListener("durationchange", syncDuration);
 
   media.addEventListener("timeupdate", () => {
-    seek.value = String(media.currentTime);
-    current.textContent = formatTime(media.currentTime);
+    syncCurrentTime();
     syncToggle();
   });
 
+  media.addEventListener("seeking", syncCurrentTime);
   media.addEventListener("ended", syncToggle);
   media.addEventListener("pause", syncToggle);
   media.addEventListener("play", syncToggle);
 
   seek.addEventListener("input", () => {
-    media.currentTime = Number(seek.value);
-    current.textContent = formatTime(media.currentTime);
+    isScrubbing = true;
+    current.textContent = formatTime(Number(seek.value));
   });
 
+  seek.addEventListener("change", () => {
+    commitSeek();
+    isScrubbing = false;
+  });
+
+  seek.addEventListener("pointerdown", () => {
+    isScrubbing = true;
+  });
+
+  seek.addEventListener("pointerup", () => {
+    commitSeek();
+    isScrubbing = false;
+  });
+
+  seek.addEventListener("keyup", (event) => {
+    if (event.key === "ArrowLeft" || event.key === "ArrowRight" || event.key === "Home" || event.key === "End") {
+      commitSeek();
+      isScrubbing = false;
+    }
+  });
+
+  syncDuration();
+  syncCurrentTime();
   syncToggle();
 }
 
