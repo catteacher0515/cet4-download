@@ -11,9 +11,20 @@ interface Props {
   description: string;
   pathname: string;
   shellClassName?: string;
+  mainClassName?: string;
+  hideHeader?: boolean;
+  hideFooter?: boolean;
 }
 
-const { title, description, pathname, shellClassName = "" } = Astro.props;
+const {
+  title,
+  description,
+  pathname,
+  shellClassName = "",
+  mainClassName = "",
+  hideHeader = false,
+  hideFooter = false
+} = Astro.props;
 
 const navItems: NavItem[] = [
   { href: "/", label: "首页" },
@@ -31,28 +42,36 @@ const navItems: NavItem[] = [
   </head>
   <body>
     <div class={`site-shell ${shellClassName}`.trim()}>
-      <header class="site-header">
-        <div class="brand">
-          <span class="brand-mark"></span>
-          <span>CET-4 TOOL SITE</span>
-        </div>
+      {
+        hideHeader ? null : (
+          <header class="site-header">
+            <div class="brand">
+              <span class="brand-mark"></span>
+              <span>CET-4 TOOL SITE</span>
+            </div>
 
-        <nav class="site-nav" aria-label="主导航">
-          {navItems.map((item) => (
-            <a href={item.href} aria-current={pathname === item.href ? "page" : undefined}>
-              {item.label}
-            </a>
-          ))}
-        </nav>
-      </header>
+            <nav class="site-nav" aria-label="主导航">
+              {navItems.map((item) => (
+                <a href={item.href} aria-current={pathname === item.href ? "page" : undefined}>
+                  {item.label}
+                </a>
+              ))}
+            </nav>
+          </header>
+        )
+      }
 
-      <main>
+      <main class={mainClassName}>
         <slot />
       </main>
 
-      <footer class="site-footer">
-        不登录，不跳网盘，直接提供真题 PDF，后续再逐步补齐对应听力音频。
-      </footer>
+      {
+        hideFooter ? null : (
+          <footer class="site-footer">
+            不登录，不跳网盘，直接提供真题 PDF，后续再逐步补齐对应听力音频。
+          </footer>
+        )
+      }
     </div>
   </body>
 </html>

@@ -16,14 +16,16 @@ import {
 const rootDir = resolve(process.cwd());
 
 test("papers 至少包含一条演示数据", () => {
-  assert.ok(papers.length >= 1);
+  assert.equal(papers.length, 30);
 });
 
 test("papers 使用 year-month-setNumber 进行分组", () => {
   const groups = groupPapersBySession(papers);
-  assert.equal(groups.length, 1);
+  assert.equal(groups.length, 10);
   assert.equal(groups[0]?.label, "2025 年 12 月");
   assert.equal(groups[0]?.papers.length, 3);
+  assert.equal(groups.at(-1)?.label, "2021 年 6 月");
+  assert.equal(groups.at(-1)?.papers.length, 3);
 });
 
 test("新增真题时会生成稳定的文件路径和标题", () => {
@@ -115,6 +117,30 @@ test("批量导入后可以把 3 条记录插入 papers 数组", () => {
   assert.match(updated, /\.\.\.buildPaperAssetPaths\(2026, 6, 1\)/);
   assert.match(updated, /\.\.\.buildPaperAssetPaths\(2026, 6, 2\)/);
   assert.match(updated, /\.\.\.buildPaperAssetPaths\(2026, 6, 3\)/);
+});
+
+test("插入记录时不会误命中函数内部的 marker 字符串", () => {
+  const original = [
+    'export function insertPaperRecords(source: string) {',
+    '  const marker = "export const papers: Cet4Paper[] = [";',
+    "  return source;",
+    "}",
+    "",
+    "export const papers: Cet4Paper[] = [",
+    "  {",
+    "    ...buildPaperAssetPaths(2025, 12, 1),",
+    "    year: 2025,",
+    "    month: 12,",
+    "    setNumber: 1",
+    "  }",
+    "];",
+    ""
+  ].join("\n");
+
+  const updated = insertPaperRecords(original, [buildPaperRecordSnippet(2026, 6, 1)]);
+
+  assert.match(updated, /const marker = "export const papers: Cet4Paper\[] = \[";/);
+  assert.match(updated, /\.\.\.buildPaperAssetPaths\(2026, 6, 1\)/);
 });
 
 test("重复插入同一条记录时会直接报错", () => {

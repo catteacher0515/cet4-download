@@ -22,39 +22,60 @@ const { paper } = Astro.props;
   title={`${paper.title} - 在线预览`}
   description={`${paper.title} 在线预览与 PDF 下载。`}
   pathname="/papers"
+  shellClassName="site-shell--reader"
+  mainClassName="reader-main"
+  hideHeader
+  hideFooter
 >
-  <section class="page-section preview-page">
-    <div class="preview-page__header">
-      <div>
-        <p class="preview-page__eyebrow">在线预览</p>
-        <h1 class="preview-page__title">{paper.title}</h1>
-        <p class="page-copy">
-          当前支持最简单的整卷在线预览。你可以先浏览完整试卷，再决定是否下载 PDF。
-        </p>
+  <section class="reader-page">
+    <header class="reader-topbar">
+      <div class="reader-topbar__primary">
+        <a class="reader-pill reader-pill--ghost" href="/papers">返回真题列表</a>
+        <div class="reader-topbar__title-wrap">
+          <p class="reader-topbar__eyebrow">在线预览</p>
+          <h1 class="reader-topbar__title">{paper.title}</h1>
+        </div>
       </div>
 
-      <div class="preview-page__actions">
-        <a class="paper-card__button paper-card__button--secondary" href="/papers">
-          返回真题列表
-        </a>
-        <a class="paper-card__button paper-card__button--primary" href={paper.pdfPath} download>
+      <div class="reader-topbar__actions">
+        <span class="reader-topbar__meta">
+          {paper.year} 年 {paper.month} 月 / 第 {paper.setNumber} 套
+        </span>
+        <a class="reader-pill reader-pill--primary" href={paper.pdfPath} download>
           下载 PDF
         </a>
       </div>
-    </div>
-  </section>
+    </header>
 
-  <section class="page-section preview-viewer">
-    <div class="preview-viewer__frame">
-      <div class="preview-viewer__toolbar">
-        <span>在线预览</span>
-        <span>{paper.year} 年 {paper.month} 月 / 第 {paper.setNumber} 套</span>
+    <div class="reader-stage">
+      <div class="reader-stage__toolbar">
+        <div class="reader-stage__dots" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="reader-stage__labels">
+          <span>PDF 阅读器</span>
+          <span>{paper.title}</span>
+        </div>
       </div>
+
       <iframe
-        class="preview-viewer__iframe"
+        class="reader-stage__iframe"
         src={`${paper.pdfPath}#toolbar=0&navpanes=0&scrollbar=1`}
         title={`${paper.title} 在线预览`}
       ></iframe>
     </div>
   </section>
+
+  {
+    paper.audioPath ? (
+      <aside class="reader-audio-dock" aria-label="听力音频">
+        <audio class="reader-audio-dock__player" controls preload="none">
+          <source src={paper.audioPath} type="audio/mp4" />
+          你的浏览器暂不支持音频播放，请直接下载后使用。
+        </audio>
+      </aside>
+    ) : null
+  }
 </BaseLayout>

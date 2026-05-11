@@ -42,6 +42,9 @@ test("试卷预览页输出在线预览和下载入口", () => {
   assert.match(previewHtml, /在线预览/);
   assert.match(previewHtml, /下载 PDF/);
   assert.match(previewHtml, /iframe/);
+  assert.match(previewHtml, /听力音频/);
+  assert.match(previewHtml, /audio/);
+  assert.match(previewHtml, /audio\/2025\/12\/cet4-2025-12-set-01\.mp4/);
 });
 
 test("首页会强调真题下载与后续高频词汇扩展方向", () => {

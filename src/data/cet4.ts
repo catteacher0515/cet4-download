@@ -55,7 +55,7 @@ export function buildPaperRecordSnippet(year: number, month: 6 | 12, setNumber: 
 
 export function insertPaperRecords(source: string, snippets: string[]): string {
   const marker = "export const papers: Cet4Paper[] = [";
-  const startIndex = source.indexOf(marker);
+  const startIndex = source.lastIndexOf(marker);
 
   if (startIndex === -1) {
     throw new Error("未找到 papers 数组定义");
@@ -125,7 +125,8 @@ export const papers: Cet4Paper[] = [
     ...buildPaperAssetPaths(2025, 12, 1),
     year: 2025,
     month: 12,
-    setNumber: 1
+    setNumber: 1,
+    audioPath: "/audio/2025/12/cet4-2025-12-set-01.mp4"
   },
   {
     ...buildPaperAssetPaths(2025, 12, 2),
@@ -138,7 +139,170 @@ export const papers: Cet4Paper[] = [
     year: 2025,
     month: 12,
     setNumber: 3
+  },
+  {
+    ...buildPaperAssetPaths(2025, 6, 1),
+    year: 2025,
+    month: 6,
+    setNumber: 1
+  },
+  {
+    ...buildPaperAssetPaths(2025, 6, 2),
+    year: 2025,
+    month: 6,
+    setNumber: 2
+  },
+  {
+    ...buildPaperAssetPaths(2025, 6, 3),
+    year: 2025,
+    month: 6,
+    setNumber: 3
+  },
+  {
+    ...buildPaperAssetPaths(2024, 12, 1),
+    year: 2024,
+    month: 12,
+    setNumber: 1
+  },
+  {
+    ...buildPaperAssetPaths(2024, 12, 2),
+    year: 2024,
+    month: 12,
+    setNumber: 2
+  },
+  {
+    ...buildPaperAssetPaths(2024, 12, 3),
+    year: 2024,
+    month: 12,
+    setNumber: 3
+  },
+  {
+    ...buildPaperAssetPaths(2024, 6, 1),
+    year: 2024,
+    month: 6,
+    setNumber: 1
+  },
+  {
+    ...buildPaperAssetPaths(2024, 6, 2),
+    year: 2024,
+    month: 6,
+    setNumber: 2
+  },
+  {
+    ...buildPaperAssetPaths(2024, 6, 3),
+    year: 2024,
+    month: 6,
+    setNumber: 3
+  },
+  {
+    ...buildPaperAssetPaths(2023, 6, 1),
+    year: 2023,
+    month: 6,
+    setNumber: 1
+  },
+  {
+    ...buildPaperAssetPaths(2023, 6, 2),
+    year: 2023,
+    month: 6,
+    setNumber: 2
+  },
+  {
+    ...buildPaperAssetPaths(2023, 6, 3),
+    year: 2023,
+    month: 6,
+    setNumber: 3
+  },
+  {
+    ...buildPaperAssetPaths(2022, 12, 1),
+    year: 2022,
+    month: 12,
+    setNumber: 1
+  },
+  {
+    ...buildPaperAssetPaths(2022, 12, 2),
+    year: 2022,
+    month: 12,
+    setNumber: 2
+  },
+  {
+    ...buildPaperAssetPaths(2022, 12, 3),
+    year: 2022,
+    month: 12,
+    setNumber: 3
+  },
+  {
+    ...buildPaperAssetPaths(2023, 12, 1),
+    year: 2023,
+    month: 12,
+    setNumber: 1
+  },
+  {
+    ...buildPaperAssetPaths(2023, 12, 2),
+    year: 2023,
+    month: 12,
+    setNumber: 2
+  },
+  {
+    ...buildPaperAssetPaths(2023, 12, 3),
+    year: 2023,
+    month: 12,
+    setNumber: 3
+  },
+  {
+    ...buildPaperAssetPaths(2022, 6, 1),
+    year: 2022,
+    month: 6,
+    setNumber: 1
+  },
+  {
+    ...buildPaperAssetPaths(2022, 6, 2),
+    year: 2022,
+    month: 6,
+    setNumber: 2
+  },
+  {
+    ...buildPaperAssetPaths(2022, 6, 3),
+    year: 2022,
+    month: 6,
+    setNumber: 3
+  },
+  {
+    ...buildPaperAssetPaths(2021, 6, 1),
+    year: 2021,
+    month: 6,
+    setNumber: 1
+  },
+  {
+    ...buildPaperAssetPaths(2021, 6, 2),
+    year: 2021,
+    month: 6,
+    setNumber: 2
+  },
+  {
+    ...buildPaperAssetPaths(2021, 6, 3),
+    year: 2021,
+    month: 6,
+    setNumber: 3
+  },
+  {
+    ...buildPaperAssetPaths(2021, 12, 1),
+    year: 2021,
+    month: 12,
+    setNumber: 1
+  },
+  {
+    ...buildPaperAssetPaths(2021, 12, 2),
+    year: 2021,
+    month: 12,
+    setNumber: 2
+  },
+  {
+    ...buildPaperAssetPaths(2021, 12, 3),
+    year: 2021,
+    month: 12,
+    setNumber: 3
   }
+
 ];
 
 export type PaperSessionGroup = {
