@@ -25,3 +25,12 @@ test("真题下载页输出年份分组和 PDF 下载链接", () => {
   assert.match(papersHtml, /papers\/2025\/12\/cet4-2025-12-set-01\.pdf/);
   assert.match(papersHtml, /听力音频后续开放/);
 });
+
+test("首页会强调真题下载与后续高频词汇扩展方向", () => {
+  execSync("npm run build", { stdio: "pipe" });
+
+  const homeHtml = readFileSync(resolve(process.cwd(), "dist/index.html"), "utf8");
+
+  assert.match(homeHtml, /真题下载/);
+  assert.match(homeHtml, /关于本站/);
+});
