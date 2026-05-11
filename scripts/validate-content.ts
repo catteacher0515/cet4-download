@@ -9,6 +9,11 @@ async function main() {
     const pdfPath = resolve(publicDir, paper.pdfPath.replace(/^\//, ""));
     await access(pdfPath);
 
+    if (paper.previewImagePath) {
+      const previewImagePath = resolve(publicDir, paper.previewImagePath.replace(/^\//, ""));
+      await access(previewImagePath);
+    }
+
     if (paper.audioPath) {
       const audioPath = resolve(publicDir, paper.audioPath.replace(/^\//, ""));
       await access(audioPath);
