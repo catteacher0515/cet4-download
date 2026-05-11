@@ -31,6 +31,8 @@ const navItems: NavItem[] = [
   { href: "/papers", label: "真题下载" },
   { href: "/about", label: "关于本站" }
 ];
+
+const brandLabel = pathname === "/" ? "四级真题资料站" : "CET-4 TOOL SITE";
 ---
 
 <html lang="zh-CN">
@@ -47,7 +49,7 @@ const navItems: NavItem[] = [
           <header class="site-header">
             <div class="brand">
               <span class="brand-mark"></span>
-              <span>CET-4 TOOL SITE</span>
+              <span>{brandLabel}</span>
             </div>
 
             <nav class="site-nav" aria-label="主导航">

@@ -9,44 +9,45 @@ const latestPaper = papers[0];
   title="四级真题工具站"
   description="提供四级真题 PDF 直接下载，后续支持听力在线播放。"
   pathname="/"
+  hideFooter={true}
 >
-  <section class="page-section hero-grid">
-    <div>
-      <h1 class="hero-title">四级真题，直接下载。</h1>
-      <p class="hero-copy">
-        不登录，不跳网盘，不做无关拦截。这个站点先把最核心的一步做好：让你更快拿到四级真题 PDF。
-      </p>
-    </div>
+  <section class="page-section home-hero">
+    <div class="home-hero__grid">
+      <div class="home-hero__content">
+        <p class="home-hero__eyebrow">免费四级真题工具站</p>
+        <h1 class="home-hero__title">
+          <span>四级真题</span>
+        </h1>
+        <p class="home-hero__subtitle">直接下载</p>
+        <p class="home-hero__lead">不登录，不跳转，不做无关拦截。</p>
+        <p class="home-hero__detail">你进来之后要做的事只有一件：更快拿到需要的四级真题 PDF。</p>
+        <div class="home-hero__actions">
+          <a class="home-hero__button" href="/papers">进入真题下载页</a>
+        </div>
+      </div>
 
-    <div class="panel">
-      <h2 class="section-title">站点承诺</h2>
-      <p class="page-copy">
-        首页负责给你入口，真题下载页负责让你直接完成操作。听力音频后续会补齐，但不会改变这个站“直接给资料”的核心体验。
-      </p>
-    </div>
-  </section>
-
-  <section class="page-section">
-    <div class="entry-grid">
-      <a class="entry-card" href="/papers">
-        <h2>真题下载</h2>
-        <p class="page-copy">按年份与套数查看真题，在卡片中直接下载 PDF。</p>
-      </a>
-
-      <a class="entry-card" href="/about">
-        <h2>关于本站</h2>
-        <p class="page-copy">查看站点定位、维护方式和后续扩展方向。</p>
-      </a>
-    </div>
-  </section>
-
-  <section class="page-section">
-    <h2 class="section-title">最新真题预览</h2>
-    <div class="preview-grid">
-      <article class="entry-card">
-        <h2>{latestPaper.title}</h2>
-        <p class="page-copy">当前演示资源已接入：支持直接下载 PDF。听力音频后续补齐。</p>
-      </article>
+      <aside class="home-hero__panel">
+        <p class="home-update__eyebrow">最近更新</p>
+        <h2 class="home-update__title">{latestPaper.title}</h2>
+        <p class="home-update__copy">最新一套真题已经接入站点，可直接在线预览并下载 PDF。</p>
+        <dl class="home-hero__meta">
+          <div>
+            <dt>年份</dt>
+            <dd>{latestPaper.year} 年</dd>
+          </div>
+          <div>
+            <dt>场次</dt>
+            <dd>{latestPaper.month === 12 ? "下半年" : "上半年"}</dd>
+          </div>
+          <div>
+            <dt>套数</dt>
+            <dd>第 {latestPaper.setNumber} 套</dd>
+          </div>
+        </dl>
+        <a class="home-update__link" href={`/papers/${latestPaper.year}/${latestPaper.month}/${latestPaper.setNumber}/`}>
+          查看最新真题
+        </a>
+      </div>
     </div>
   </section>
 </BaseLayout>

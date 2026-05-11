@@ -12,8 +12,10 @@ test("首页和关于页会出现在构建产物中", () => {
   const homeHtml = readFileSync(resolve(process.cwd(), "dist/index.html"), "utf8");
   const aboutHtml = readFileSync(resolve(process.cwd(), "dist/about/index.html"), "utf8");
 
-  assert.match(homeHtml, /四级真题，直接下载/);
-  assert.match(homeHtml, /真题下载/);
+  assert.match(homeHtml, /四级真题资料站/);
+  assert.match(homeHtml, /四级真题/);
+  assert.match(homeHtml, /直接下载/);
+  assert.match(homeHtml, /进入真题下载页/);
   assert.match(aboutHtml, /关于本站/);
 });
 
@@ -55,6 +57,9 @@ test("试卷预览页输出在线预览和下载入口", () => {
 test("首页会强调真题下载与后续高频词汇扩展方向", () => {
   const homeHtml = readFileSync(resolve(process.cwd(), "dist/index.html"), "utf8");
 
-  assert.match(homeHtml, /真题下载/);
-  assert.match(homeHtml, /关于本站/);
+  assert.match(homeHtml, /最近更新/);
+  assert.match(homeHtml, /查看最新真题/);
+  assert.doesNotMatch(homeHtml, /站点承诺/);
+  assert.doesNotMatch(homeHtml, /最新真题预览/);
+  assert.doesNotMatch(homeHtml, /不登录，不跳网盘，直接提供真题 PDF，后续再逐步补齐对应听力音频/);
 });
