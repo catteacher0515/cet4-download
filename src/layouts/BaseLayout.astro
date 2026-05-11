@@ -1,0 +1,57 @@
+---
+import "../styles/global.css";
+
+type NavItem = {
+  href: string;
+  label: string;
+};
+
+interface Props {
+  title: string;
+  description: string;
+  pathname: string;
+}
+
+const { title, description, pathname } = Astro.props;
+
+const navItems: NavItem[] = [
+  { href: "/", label: "首页" },
+  { href: "/papers", label: "真题下载" },
+  { href: "/about", label: "关于本站" }
+];
+---
+
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="site-header">
+        <div class="brand">
+          <span class="brand-mark"></span>
+          <span>CET-4 TOOL SITE</span>
+        </div>
+
+        <nav class="site-nav" aria-label="主导航">
+          {navItems.map((item) => (
+            <a href={item.href} aria-current={pathname === item.href ? "page" : undefined}>
+              {item.label}
+            </a>
+          ))}
+        </nav>
+      </header>
+
+      <main>
+        <slot />
+      </main>
+
+      <footer class="site-footer">
+        不登录，不跳网盘，直接提供真题 PDF，后续再逐步补齐对应听力音频。
+      </footer>
+    </div>
+  </body>
+</html>

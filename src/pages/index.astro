@@ -1,16 +1,52 @@
 ---
+import { papers } from "../data/cet4";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const latestPaper = papers[0];
 ---
 
-<html lang="zh-CN">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>四级真题工具站</title>
-  </head>
-  <body>
-    <main>
-      <h1>四级真题工具站</h1>
-      <p>基础骨架已创建，后续任务会替换成正式页面。</p>
-    </main>
-  </body>
-</html>
+<BaseLayout
+  title="四级真题工具站"
+  description="提供四级真题 PDF 直接下载，后续支持听力在线播放。"
+  pathname="/"
+>
+  <section class="page-section hero-grid">
+    <div>
+      <h1 class="hero-title">四级真题，直接下载。</h1>
+      <p class="hero-copy">
+        不登录，不跳网盘，不做无关拦截。这个站点先把最核心的一步做好：让你更快拿到四级真题 PDF。
+      </p>
+    </div>
+
+    <div class="panel">
+      <h2 class="section-title">站点承诺</h2>
+      <p class="page-copy">
+        首页负责给你入口，真题下载页负责让你直接完成操作。听力音频后续会补齐，但不会改变这个站“直接给资料”的核心体验。
+      </p>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="entry-grid">
+      <a class="entry-card" href="/papers">
+        <h2>真题下载</h2>
+        <p class="page-copy">按年份与套数查看真题，在卡片中直接下载 PDF。</p>
+      </a>
+
+      <a class="entry-card" href="/about">
+        <h2>关于本站</h2>
+        <p class="page-copy">查看站点定位、维护方式和后续扩展方向。</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <h2 class="section-title">最新真题预览</h2>
+    <div class="preview-grid">
+      <article class="entry-card">
+        <h2>{latestPaper.title}</h2>
+        <p class="page-copy">当前演示资源已接入：支持直接下载 PDF。听力音频后续补齐。</p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
