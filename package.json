@@ -10,6 +10,7 @@
     "preview": "astro preview",
     "test": "tsx --test tests/**/*.test.ts",
     "validate:content": "tsx scripts/validate-content.ts",
+    "prebuild": "npm run validate:content",
     "check": "astro check && npm run test"
   },
   "dependencies": {
