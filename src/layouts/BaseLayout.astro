@@ -10,9 +10,10 @@ interface Props {
   title: string;
   description: string;
   pathname: string;
+  shellClassName?: string;
 }
 
-const { title, description, pathname } = Astro.props;
+const { title, description, pathname, shellClassName = "" } = Astro.props;
 
 const navItems: NavItem[] = [
   { href: "/", label: "首页" },
@@ -29,7 +30,7 @@ const navItems: NavItem[] = [
     <meta name="description" content={description} />
   </head>
   <body>
-    <div class="site-shell">
+    <div class={`site-shell ${shellClassName}`.trim()}>
       <header class="site-header">
         <div class="brand">
           <span class="brand-mark"></span>

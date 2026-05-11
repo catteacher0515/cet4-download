@@ -14,7 +14,7 @@ test("papers 使用 year-month-setNumber 进行分组", () => {
   const groups = groupPapersBySession(papers);
   assert.equal(groups.length, 1);
   assert.equal(groups[0]?.label, "2025 年 12 月");
-  assert.equal(groups[0]?.papers.length, 1);
+  assert.equal(groups[0]?.papers.length, 3);
 });
 
 test("每条真题记录都至少指向存在的 PDF 文件", async () => {

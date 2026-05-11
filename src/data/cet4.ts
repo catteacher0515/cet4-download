@@ -5,6 +5,7 @@ export type Cet4Paper = {
   setNumber: number;
   title: string;
   pdfPath: string;
+  previewImagePath?: string;
   audioPath?: string;
   audioDuration?: string;
 };
@@ -15,8 +16,27 @@ export const papers: Cet4Paper[] = [
     year: 2025,
     month: 12,
     setNumber: 1,
-    title: "2025 年 12 月四级真题（第 1 套）",
-    pdfPath: "/papers/2025/12/cet4-2025-12-set-01.pdf"
+    title: "2025年12月英语四级真题(第1套)",
+    pdfPath: "/papers/2025/12/cet4-2025-12-set-01.pdf",
+    previewImagePath: "/previews/2025/12/cet4-2025-12-set-01.png"
+  },
+  {
+    id: "cet4-2025-12-set-02",
+    year: 2025,
+    month: 12,
+    setNumber: 2,
+    title: "2025年12月英语四级真题(第2套)",
+    pdfPath: "/papers/2025/12/cet4-2025-12-set-02.pdf",
+    previewImagePath: "/previews/2025/12/cet4-2025-12-set-02.png"
+  },
+  {
+    id: "cet4-2025-12-set-03",
+    year: 2025,
+    month: 12,
+    setNumber: 3,
+    title: "2025年12月英语四级真题(第3套)",
+    pdfPath: "/papers/2025/12/cet4-2025-12-set-03.pdf",
+    previewImagePath: "/previews/2025/12/cet4-2025-12-set-03.png"
   }
 ];
 

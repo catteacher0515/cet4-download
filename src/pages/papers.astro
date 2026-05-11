@@ -10,22 +10,35 @@ const groups = groupPapersBySession(papers);
   title="真题下载"
   description="按年份查看四级真题，直接下载 PDF。"
   pathname="/papers"
+  shellClassName="site-shell--full-bleed"
 >
-  <section class="page-section">
-    <h1 class="page-title">真题下载</h1>
-    <p class="page-copy">
-      按年份和套数整理。当前阶段先把 PDF 下载链路做稳，听力音频入口后续补齐。
+  <section class="papers-hero papers-hero--compact page-section">
+    <div class="papers-hero__header">
+      <span class="papers-hero__year-tag">2026</span>
+      <h1 class="papers-hero__title">大学英语四级真题在线</h1>
+      <p class="papers-hero__subline">2025 年 12 月起，逐步整理历年真题试卷</p>
+    </div>
+
+    <div class="papers-hero__chips">
+      <span>真题 PDF</span>
+      <span>按年份整理</span>
+      <span>在线预览</span>
+      <span>直接下载</span>
+    </div>
+
+    <p class="papers-hero__copy">
+      点击卡片主体进入试卷预览页，点击按钮直接下载 PDF。先把“看试卷”和“下试卷”这两条路径清晰分开。
     </p>
   </section>
 
   {groups.map((group) => (
-    <section class="page-section">
-      <div class="papers-section__head">
-        <h2 class="section-title">{group.label}</h2>
+    <section class="page-section papers-session papers-session--compact">
+      <div class="papers-section__head papers-section__head--center">
+        <h2 class="papers-session__title">{group.year}年 - {group.month === 12 ? "下半年" : "上半年"}</h2>
         <p class="page-copy">{group.papers.length} 套真题</p>
       </div>
 
-      <div class="papers-grid">
+      <div class="papers-grid papers-grid--three-up">
         {group.papers.map((paper) => (
           <PaperCard paper={paper} />
         ))}
@@ -36,7 +49,7 @@ const groups = groupPapersBySession(papers);
   <section class="page-section">
     <div class="panel">
       <p class="page-copy">
-        MVP 边界：当前只提供真题 PDF，不包含答案版、解析版、批量下载和完整听力音频。
+        当前提供在线预览和 PDF 下载。答案、解析、批量下载和完整听力音频会在后续版本逐步补充。
       </p>
     </div>
   </section>

@@ -1,0 +1,60 @@
+---
+import BaseLayout from "../../../../layouts/BaseLayout.astro";
+import { papers } from "../../../../data/cet4";
+
+export function getStaticPaths() {
+  return papers.map((paper) => ({
+    params: {
+      year: String(paper.year),
+      month: String(paper.month),
+      setNumber: String(paper.setNumber)
+    },
+    props: {
+      paper
+    }
+  }));
+}
+
+const { paper } = Astro.props;
+---
+
+<BaseLayout
+  title={`${paper.title} - 在线预览`}
+  description={`${paper.title} 在线预览与 PDF 下载。`}
+  pathname="/papers"
+>
+  <section class="page-section preview-page">
+    <div class="preview-page__header">
+      <div>
+        <p class="preview-page__eyebrow">在线预览</p>
+        <h1 class="preview-page__title">{paper.title}</h1>
+        <p class="page-copy">
+          当前支持最简单的整卷在线预览。你可以先浏览完整试卷，再决定是否下载 PDF。
+        </p>
+      </div>
+
+      <div class="preview-page__actions">
+        <a class="paper-card__button paper-card__button--secondary" href="/papers">
+          返回真题列表
+        </a>
+        <a class="paper-card__button paper-card__button--primary" href={paper.pdfPath} download>
+          下载 PDF
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section preview-viewer">
+    <div class="preview-viewer__frame">
+      <div class="preview-viewer__toolbar">
+        <span>在线预览</span>
+        <span>{paper.year} 年 {paper.month} 月 / 第 {paper.setNumber} 套</span>
+      </div>
+      <iframe
+        class="preview-viewer__iframe"
+        src={`${paper.pdfPath}#toolbar=0&navpanes=0&scrollbar=1`}
+        title={`${paper.title} 在线预览`}
+      ></iframe>
+    </div>
+  </section>
+</BaseLayout>

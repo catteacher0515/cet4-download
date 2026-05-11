@@ -6,47 +6,41 @@ interface Props {
 }
 
 const { paper } = Astro.props;
+const previewHref = `/papers/${paper.year}/${paper.month}/${paper.setNumber}/`;
 ---
 
 <article class="paper-card">
-  <div class="paper-card__sheet" aria-hidden="true"></div>
+  <a class="paper-card__preview-link" href={previewHref} aria-label={`进入 ${paper.title} 在线预览页`}>
+    <div class="paper-card__preview">
+      {
+        paper.previewImagePath ? (
+          <img
+            class="paper-card__preview-image"
+            src={paper.previewImagePath}
+            alt={`${paper.title} 预览图`}
+            loading="lazy"
+          />
+        ) : (
+          <div class="paper-card__sheet" aria-hidden="true"></div>
+        )
+      }
+    </div>
+  </a>
 
   <div class="paper-card__body">
     <div class="paper-card__head">
       <div>
-        <p class="paper-card__eyebrow">SET {String(paper.setNumber).padStart(2, "0")}</p>
-        <h2 class="paper-card__title">第 {paper.setNumber} 套</h2>
+        <h2 class="paper-card__title">{paper.title}</h2>
       </div>
-      <span class="paper-card__badge">READY</span>
+      <span class="paper-card__badge">第{paper.setNumber}套</span>
     </div>
 
-    <p class="paper-card__meta">{paper.title}</p>
-
-    {
-      paper.audioPath ? (
-        <div class="paper-card__audio">
-          <div class="paper-card__audio-head">
-            <span>听力播放器</span>
-            <span>{paper.audioDuration}</span>
-          </div>
-
-          <audio controls preload="none" style="width: 100%;">
-            <source src={paper.audioPath} type="audio/mpeg" />
-            你的浏览器暂不支持音频播放，请直接下载后使用。
-          </audio>
-        </div>
-      ) : (
-        <div class="paper-card__audio paper-card__audio--pending">
-          <div class="paper-card__audio-head">
-            <span>听力音频后续开放</span>
-            <span>Coming Soon</span>
-          </div>
-          <p class="page-copy">当前 MVP 先提供真题 PDF 直接下载，音频会在后续逐步补齐。</p>
-        </div>
-      )
-    }
+    <p class="paper-card__meta">点击卡片在线预览，或直接下载 PDF。</p>
 
     <div class="paper-card__actions">
+      <a class="paper-card__button paper-card__button--secondary" href={previewHref}>
+        在线预览
+      </a>
       <a class="paper-card__button paper-card__button--primary" href={paper.pdfPath} download>
         下载 PDF
       </a>

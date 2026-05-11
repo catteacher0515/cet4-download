@@ -4,9 +4,11 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import test from "node:test";
 
-test("首页和关于页会出现在构建产物中", () => {
+test.before(() => {
   execSync("npm run build", { stdio: "pipe" });
+});
 
+test("首页和关于页会出现在构建产物中", () => {
   const homeHtml = readFileSync(resolve(process.cwd(), "dist/index.html"), "utf8");
   const aboutHtml = readFileSync(resolve(process.cwd(), "dist/about/index.html"), "utf8");
 
@@ -16,19 +18,33 @@ test("首页和关于页会出现在构建产物中", () => {
 });
 
 test("真题下载页输出年份分组和 PDF 下载链接", () => {
-  execSync("npm run build", { stdio: "pipe" });
-
   const papersHtml = readFileSync(resolve(process.cwd(), "dist/papers/index.html"), "utf8");
 
-  assert.match(papersHtml, /2025 年 12 月/);
+  assert.match(papersHtml, /site-shell--full-bleed/);
+  assert.match(papersHtml, /papers-hero papers-hero--compact page-section/);
+  assert.match(papersHtml, /papers-session papers-session--compact/);
+  assert.match(papersHtml, /papers-grid papers-grid--three-up/);
+  assert.match(papersHtml, /papers-section__head papers-section__head--center/);
+  assert.match(papersHtml, /2025年 - 下半年/);
+  assert.match(papersHtml, /2025年12月英语四级真题\(第1套\)/);
+  assert.match(papersHtml, /2025年12月英语四级真题\(第2套\)/);
+  assert.match(papersHtml, /2025年12月英语四级真题\(第3套\)/);
   assert.match(papersHtml, /下载 PDF/);
   assert.match(papersHtml, /papers\/2025\/12\/cet4-2025-12-set-01\.pdf/);
-  assert.match(papersHtml, /听力音频后续开放/);
+  assert.match(papersHtml, /papers\/2025\/12\/1\//);
+  assert.doesNotMatch(papersHtml, /Coming Soon/);
+});
+
+test("试卷预览页输出在线预览和下载入口", () => {
+  const previewHtml = readFileSync(resolve(process.cwd(), "dist/papers/2025/12/1/index.html"), "utf8");
+
+  assert.match(previewHtml, /2025年12月英语四级真题\(第1套\)/);
+  assert.match(previewHtml, /在线预览/);
+  assert.match(previewHtml, /下载 PDF/);
+  assert.match(previewHtml, /iframe/);
 });
 
 test("首页会强调真题下载与后续高频词汇扩展方向", () => {
-  execSync("npm run build", { stdio: "pipe" });
-
   const homeHtml = readFileSync(resolve(process.cwd(), "dist/index.html"), "utf8");
 
   assert.match(homeHtml, /真题下载/);
