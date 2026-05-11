@@ -165,6 +165,120 @@ img {
   font-size: 13px;
 }
 
+.papers-section__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.papers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.paper-card {
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255, 252, 247, 0.98), rgba(248, 242, 232, 0.98));
+  overflow: hidden;
+}
+
+.paper-card__sheet {
+  min-height: 180px;
+  background:
+    linear-gradient(180deg, rgba(244, 235, 221, 0.56), rgba(255, 252, 247, 0.2)),
+    repeating-linear-gradient(
+      180deg,
+      rgba(74, 56, 29, 0.03) 0,
+      rgba(74, 56, 29, 0.03) 1px,
+      transparent 1px,
+      transparent 18px
+    );
+}
+
+.paper-card__body {
+  padding: 20px;
+}
+
+.paper-card__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: start;
+}
+
+.paper-card__eyebrow {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.paper-card__title {
+  margin: 0;
+  font-size: 36px;
+  line-height: 1;
+}
+
+.paper-card__badge {
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(162, 80, 51, 0.28);
+  color: var(--accent);
+  font-size: 12px;
+}
+
+.paper-card__meta {
+  margin: 12px 0 16px;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.paper-card__audio {
+  margin-bottom: 16px;
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(242, 233, 220, 0.72);
+  border: 1px solid rgba(74, 56, 29, 0.08);
+}
+
+.paper-card__audio--pending p {
+  margin-top: 10px;
+}
+
+.paper-card__audio-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+  color: #574d40;
+  font-size: 14px;
+}
+
+.paper-card__actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.paper-card__button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 48px;
+  border-radius: 14px;
+  font-weight: 700;
+}
+
+.paper-card__button--primary {
+  background: var(--accent-dark);
+  color: #fff8ef;
+}
+
 @media (max-width: 860px) {
   .site-shell {
     width: min(var(--max-width), calc(100% - 20px));

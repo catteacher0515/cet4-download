@@ -1,0 +1,55 @@
+---
+import type { Cet4Paper } from "../data/cet4";
+
+interface Props {
+  paper: Cet4Paper;
+}
+
+const { paper } = Astro.props;
+---
+
+<article class="paper-card">
+  <div class="paper-card__sheet" aria-hidden="true"></div>
+
+  <div class="paper-card__body">
+    <div class="paper-card__head">
+      <div>
+        <p class="paper-card__eyebrow">SET {String(paper.setNumber).padStart(2, "0")}</p>
+        <h2 class="paper-card__title">第 {paper.setNumber} 套</h2>
+      </div>
+      <span class="paper-card__badge">READY</span>
+    </div>
+
+    <p class="paper-card__meta">{paper.title}</p>
+
+    {
+      paper.audioPath ? (
+        <div class="paper-card__audio">
+          <div class="paper-card__audio-head">
+            <span>听力播放器</span>
+            <span>{paper.audioDuration}</span>
+          </div>
+
+          <audio controls preload="none" style="width: 100%;">
+            <source src={paper.audioPath} type="audio/mpeg" />
+            你的浏览器暂不支持音频播放，请直接下载后使用。
+          </audio>
+        </div>
+      ) : (
+        <div class="paper-card__audio paper-card__audio--pending">
+          <div class="paper-card__audio-head">
+            <span>听力音频后续开放</span>
+            <span>Coming Soon</span>
+          </div>
+          <p class="page-copy">当前 MVP 先提供真题 PDF 直接下载，音频会在后续逐步补齐。</p>
+        </div>
+      )
+    }
+
+    <div class="paper-card__actions">
+      <a class="paper-card__button paper-card__button--primary" href={paper.pdfPath} download>
+        下载 PDF
+      </a>
+    </div>
+  </div>
+</article>
