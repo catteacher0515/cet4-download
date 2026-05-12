@@ -1,5 +1,3 @@
-<img width="1470" height="956" alt="image" src="https://github.com/user-attachments/assets/863fa152-57e7-40b3-98e4-2dce1dc8bfe5" /># CET4 Download
-
 一个面向英语四级用户的纯工具站。
 
 核心目标很直接：不登录、不跳转、不做无关拦截，直接提供四级真题 PDF、在线预览和已接入的听力资源。
