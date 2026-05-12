@@ -4,6 +4,7 @@ import { resolve } from "node:path";
 import test from "node:test";
 import {
   buildBatchDownloadFilename,
+  buildDefaultBatchArchivePath,
   buildPaperAssetPaths,
   buildPaperPreviewPagePath,
   buildPaperRecordSnippet,
@@ -42,6 +43,14 @@ test("新增真题时会生成稳定的文件路径和标题", () => {
 test("批量下载会生成面向用户的中文文件名", () => {
   assert.equal(buildBatchDownloadFilename(2025, 12, 1), "2025年12月第1套.pdf");
   assert.equal(buildBatchDownloadFilename(2024, 6, 3), "2024年6月第3套.pdf");
+});
+
+test("默认全选批量下载会使用固定整包 zip 路径", () => {
+  assert.equal(buildDefaultBatchArchivePath(), "/downloads/cet4-papers.zip");
+});
+
+test("默认全选批量下载整包 zip 在本地资源中真实存在", async () => {
+  await access(resolve(rootDir, "public", buildDefaultBatchArchivePath().replace(/^\//, "")));
 });
 
 test("移动端分页预览会生成稳定的页面图片路径", () => {

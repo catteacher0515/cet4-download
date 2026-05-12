@@ -42,6 +42,10 @@ export function buildBatchDownloadFilename(year: number, month: 6 | 12, setNumbe
   return `${year}年${month}月第${setNumber}套.pdf`;
 }
 
+export function buildDefaultBatchArchivePath(): string {
+  return "/downloads/cet4-papers.zip";
+}
+
 export function buildPaperPreviewPagePath(year: number, month: 6 | 12, setNumber: number, pageNumber: number): string {
   const paddedMonth = formatPaperMonth(month);
   const paddedSetNumber = formatPaperSetNumber(setNumber);

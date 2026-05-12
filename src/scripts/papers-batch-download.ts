@@ -18,6 +18,7 @@ type BatchDownloadState = {
   summary: HTMLElement | null;
   status: HTMLElement | null;
   papersById: Map<string, BatchDownloadPaper>;
+  defaultArchivePath: string | null;
 };
 
 function readPapers(): BatchDownloadPaper[] {
@@ -32,6 +33,21 @@ function readPapers(): BatchDownloadPaper[] {
   } catch (error) {
     console.error("批量下载数据解析失败", error);
     return [];
+  }
+}
+
+function readDefaultArchivePath() {
+  const dataNode = document.getElementById("papers-batch-download-default-archive");
+
+  if (!dataNode?.textContent) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(dataNode.textContent) as string;
+  } catch (error) {
+    console.error("批量下载整包路径解析失败", error);
+    return null;
   }
 }
 
@@ -57,15 +73,18 @@ function setStatus(state: BatchDownloadState, message: string) {
   }
 }
 
-function triggerZipDownload(blob: Blob) {
-  const url = URL.createObjectURL(blob);
+function triggerZipDownload(urlOrBlob: string | Blob) {
+  const url = typeof urlOrBlob === "string" ? urlOrBlob : URL.createObjectURL(urlOrBlob);
   const anchor = document.createElement("a");
   anchor.href = url;
   anchor.download = "cet4-papers.zip";
   document.body.appendChild(anchor);
   anchor.click();
   anchor.remove();
-  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+  if (typeof urlOrBlob !== "string") {
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
 }
 
 async function fetchPaperBlob(paper: BatchDownloadPaper) {
@@ -97,6 +116,16 @@ async function startBatchDownload(state: BatchDownloadState) {
   });
 
   try {
+    const isDefaultFullSelection = selectedPapers.length === state.checkboxes.length && state.defaultArchivePath;
+
+    if (isDefaultFullSelection) {
+      setStatus(state, "正在下载整包 zip...");
+      triggerZipDownload(state.defaultArchivePath);
+      setStatus(state, `已开始下载，共 ${selectedPapers.length} 套真题。`);
+      state.dialog.close();
+      return;
+    }
+
     const zip = new JSZip();
 
     for (let index = 0; index < selectedPapers.length; index += 1) {
@@ -145,7 +174,8 @@ function initBatchDownload() {
     checkboxes: Array.from(document.querySelectorAll<HTMLInputElement>("[data-batch-download-item]")),
     summary: document.querySelector<HTMLElement>("[data-batch-download-summary]"),
     status: document.querySelector<HTMLElement>("[data-batch-download-status]"),
-    papersById: new Map(papers.map((paper) => [paper.id, paper]))
+    papersById: new Map(papers.map((paper) => [paper.id, paper])),
+    defaultArchivePath: readDefaultArchivePath()
   };
 
   state.openButtons.forEach((button) => {

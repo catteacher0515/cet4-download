@@ -42,6 +42,7 @@ test("真题下载页输出年份分组和 PDF 下载链接", () => {
   assert.match(papersHtml, /批量下载真题/);
   assert.match(papersHtml, /开始下载/);
   assert.match(papersHtml, /全选全部真题/);
+  assert.match(papersHtml, /\/cet4-download\/downloads\/cet4-papers\.zip/);
   assert.match(papersHtml, /\/cet4-download\/papers\/2025\/12\/cet4-2025-12-set-01\.pdf/);
   assert.match(papersHtml, /\/cet4-download\/papers\/2025\/12\/1\//);
   assert.doesNotMatch(papersHtml, /Coming Soon/);
