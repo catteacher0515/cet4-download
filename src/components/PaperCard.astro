@@ -1,5 +1,6 @@
 ---
 import type { Cet4Paper } from "../data/cet4";
+import { withBase } from "../utils/paths";
 
 interface Props {
   paper: Cet4Paper;
@@ -7,16 +8,17 @@ interface Props {
 
 const { paper } = Astro.props;
 const previewHref = `/papers/${paper.year}/${paper.month}/${paper.setNumber}/`;
+const currentBase = import.meta.env.BASE_URL;
 ---
 
 <article class="paper-card">
-  <a class="paper-card__preview-link" href={previewHref} aria-label={`进入 ${paper.title} 在线预览页`}>
+  <a class="paper-card__preview-link" href={withBase(previewHref, currentBase)} aria-label={`进入 ${paper.title} 在线预览页`}>
     <div class="paper-card__preview">
       {
         paper.previewImagePath ? (
           <img
             class="paper-card__preview-image"
-            src={paper.previewImagePath}
+            src={withBase(paper.previewImagePath, currentBase)}
             alt={`${paper.title} 预览图`}
             loading="lazy"
           />
@@ -38,10 +40,10 @@ const previewHref = `/papers/${paper.year}/${paper.month}/${paper.setNumber}/`;
     <p class="paper-card__meta">点击卡片在线预览，或直接下载 PDF。</p>
 
     <div class="paper-card__actions">
-      <a class="paper-card__button paper-card__button--secondary" href={previewHref}>
+      <a class="paper-card__button paper-card__button--secondary" href={withBase(previewHref, currentBase)}>
         在线预览
       </a>
-      <a class="paper-card__button paper-card__button--primary" href={paper.pdfPath} download>
+      <a class="paper-card__button paper-card__button--primary" href={withBase(paper.pdfPath, currentBase)} download>
         下载 PDF
       </a>
     </div>

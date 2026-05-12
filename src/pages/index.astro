@@ -1,8 +1,10 @@
 ---
 import { papers } from "../data/cet4";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { withBase } from "../utils/paths";
 
 const latestPaper = papers[0];
+const currentBase = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout
@@ -22,7 +24,7 @@ const latestPaper = papers[0];
         <p class="home-hero__lead">不登录，不跳转，不做无关拦截。</p>
         <p class="home-hero__detail">你进来之后要做的事只有一件：更快拿到需要的四级真题 PDF。</p>
         <div class="home-hero__actions">
-          <a class="home-hero__button" href="/papers">进入真题下载页</a>
+          <a class="home-hero__button" href={withBase("/papers", currentBase)}>进入真题下载页</a>
         </div>
       </div>
 
@@ -44,7 +46,7 @@ const latestPaper = papers[0];
             <dd>第 {latestPaper.setNumber} 套</dd>
           </div>
         </dl>
-        <a class="home-update__link" href={`/papers/${latestPaper.year}/${latestPaper.month}/${latestPaper.setNumber}/`}>
+        <a class="home-update__link" href={withBase(`/papers/${latestPaper.year}/${latestPaper.month}/${latestPaper.setNumber}/`, currentBase)}>
           查看最新真题
         </a>
       </div>

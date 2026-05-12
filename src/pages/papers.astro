@@ -3,13 +3,15 @@ import PaperCard from "../components/PaperCard.astro";
 import { buildBatchDownloadFilename, groupPapersBySession, papers } from "../data/cet4";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import papersBatchDownloadScript from "../scripts/papers-batch-download.ts?url";
+import { withBase } from "../utils/paths";
 
 const groups = groupPapersBySession(papers);
+const currentBase = import.meta.env.BASE_URL;
 const batchDownloadPapers = groups.flatMap((group) =>
   group.papers.map((paper) => ({
     id: paper.id,
     title: paper.title,
-    pdfPath: paper.pdfPath,
+    pdfPath: withBase(paper.pdfPath, currentBase),
     sessionLabel: `${paper.year}年${paper.month === 12 ? "12月" : "6月"}`,
     batchFilename: buildBatchDownloadFilename(paper.year, paper.month, paper.setNumber)
   }))

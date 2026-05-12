@@ -2,6 +2,7 @@
 import BaseLayout from "../../../../layouts/BaseLayout.astro";
 import { papers } from "../../../../data/cet4";
 import pdfReaderScript from "../../../../scripts/pdf-reader.ts?url";
+import { withBase } from "../../../../utils/paths";
 
 export function getStaticPaths() {
   return papers.map((paper) => ({
@@ -17,6 +18,7 @@ export function getStaticPaths() {
 }
 
 const { paper } = Astro.props;
+const currentBase = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout
@@ -32,7 +34,7 @@ const { paper } = Astro.props;
     <div class="reader-stage">
       <div class="reader-stage__toolbar">
         <div class="reader-stage__toolbar-start">
-          <a class="reader-toolbar-button reader-toolbar-button--ghost" href="/papers">
+          <a class="reader-toolbar-button reader-toolbar-button--ghost" href={withBase("/papers", currentBase)}>
             返回真题列表
           </a>
         </div>
@@ -41,7 +43,7 @@ const { paper } = Astro.props;
           <span>{paper.title}</span>
         </div>
         <div class="reader-stage__toolbar-end">
-          <a class="reader-toolbar-button reader-toolbar-button--primary" href={paper.pdfPath} download>
+          <a class="reader-toolbar-button reader-toolbar-button--primary" href={withBase(paper.pdfPath, currentBase)} download>
             下载 PDF
           </a>
         </div>
@@ -50,7 +52,7 @@ const { paper } = Astro.props;
       <div
         class="reader-pdfjs"
         data-reader-pdfjs
-        data-pdf-url={paper.pdfPath}
+        data-pdf-url={withBase(paper.pdfPath, currentBase)}
         data-pdf-title={paper.title}
       >
         <div class="reader-pdfjs__meta">
@@ -85,7 +87,7 @@ const { paper } = Astro.props;
           aria-label="音频播放进度"
         />
         <audio class="reader-audio-bar__media" preload="metadata" data-audio-media>
-          <source src={paper.audioPath} type="audio/mp4" />
+          <source src={withBase(paper.audioPath, currentBase)} type="audio/mp4" />
           你的浏览器暂不支持音频播放，请直接下载后使用。
         </audio>
       </aside>

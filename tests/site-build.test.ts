@@ -13,6 +13,7 @@ test("首页和关于页会出现在构建产物中", () => {
   const aboutHtml = readFileSync(resolve(process.cwd(), "dist/about/index.html"), "utf8");
 
   assert.match(homeHtml, /四级真题资料站/);
+  assert.match(homeHtml, /href="\/cet4-download\/papers"/);
   assert.match(homeHtml, /四级真题/);
   assert.match(homeHtml, /直接下载/);
   assert.match(homeHtml, /进入真题下载页/);
@@ -41,8 +42,8 @@ test("真题下载页输出年份分组和 PDF 下载链接", () => {
   assert.match(papersHtml, /批量下载真题/);
   assert.match(papersHtml, /开始下载/);
   assert.match(papersHtml, /全选全部真题/);
-  assert.match(papersHtml, /papers\/2025\/12\/cet4-2025-12-set-01\.pdf/);
-  assert.match(papersHtml, /papers\/2025\/12\/1\//);
+  assert.match(papersHtml, /\/cet4-download\/papers\/2025\/12\/cet4-2025-12-set-01\.pdf/);
+  assert.match(papersHtml, /\/cet4-download\/papers\/2025\/12\/1\//);
   assert.doesNotMatch(papersHtml, /Coming Soon/);
 });
 
@@ -51,7 +52,8 @@ test("试卷预览页输出在线预览和下载入口", () => {
 
   assert.match(previewHtml, /2025年12月英语四级真题\(第1套\)/);
   assert.match(previewHtml, /reader-pdfjs/);
-  assert.match(previewHtml, /data-pdf-url="\/papers\/2025\/12\/cet4-2025-12-set-01\.pdf"/);
+  assert.match(previewHtml, /href="\/cet4-download\/papers"/);
+  assert.match(previewHtml, /data-pdf-url="\/cet4-download\/papers\/2025\/12\/cet4-2025-12-set-01\.pdf"/);
   assert.doesNotMatch(previewHtml, /reader-topbar/);
   assert.match(previewHtml, /reader-audio-bar/);
   assert.match(previewHtml, /reader-audio-bar__toggle/);
@@ -60,7 +62,7 @@ test("试卷预览页输出在线预览和下载入口", () => {
   assert.doesNotMatch(previewHtml, /iframe/);
   assert.match(previewHtml, /听力音频/);
   assert.match(previewHtml, /audio/);
-  assert.match(previewHtml, /audio\/2025\/12\/cet4-2025-12-set-01\.mp4/);
+  assert.match(previewHtml, /\/cet4-download\/audio\/2025\/12\/cet4-2025-12-set-01\.mp4/);
 });
 
 test("首页会强调真题下载与后续高频词汇扩展方向", () => {

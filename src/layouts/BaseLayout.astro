@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { withBase } from "../utils/paths";
 
 type NavItem = {
   href: string;
@@ -33,6 +34,7 @@ const navItems: NavItem[] = [
 ];
 
 const brandLabel = "四级真题资料站";
+const currentBase = import.meta.env.BASE_URL;
 ---
 
 <html lang="zh-CN">
@@ -54,7 +56,7 @@ const brandLabel = "四级真题资料站";
 
             <nav class="site-nav" aria-label="主导航">
               {navItems.map((item) => (
-                <a href={item.href} aria-current={pathname === item.href ? "page" : undefined}>
+                <a href={withBase(item.href, currentBase)} aria-current={pathname === item.href ? "page" : undefined}>
                   {item.label}
                 </a>
               ))}
