@@ -55,6 +55,14 @@ test("移动端分页预览会生成稳定的页面图片路径", () => {
   );
 });
 
+test("移动端分页预览首张图在本地资源中真实存在", async () => {
+  for (const paper of papers) {
+    await access(
+      resolve(rootDir, "public", buildPaperPreviewPagePath(paper.year, paper.month, paper.setNumber, 1).replace(/^\//, ""))
+    );
+  }
+});
+
 test("新增真题记录会按年份倒序、月份倒序、套数正序排序", () => {
   const sorted = sortPapers([
     {

@@ -1,4 +1,4 @@
-import { mkdir, readdir, rm, writeFile } from "node:fs/promises";
+import { mkdir, readdir, rename, rm, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
@@ -41,6 +41,16 @@ async function generatePreviewPagesForPaper(previewRoot: string, pdfPath: string
 
   if (files.length !== pageCount) {
     throw new Error(`分页预览图数量异常: ${pdfPath}，期望 ${pageCount}，实际 ${files.length}`);
+  }
+
+  for (const [index, file] of files.entries()) {
+    const expectedName = `page-${String(index + 1).padStart(2, "0")}.png`;
+
+    if (file === expectedName) {
+      continue;
+    }
+
+    await rename(resolve(previewRoot, file), resolve(previewRoot, expectedName));
   }
 }
 
