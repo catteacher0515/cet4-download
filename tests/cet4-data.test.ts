@@ -3,6 +3,7 @@ import { access } from "node:fs/promises";
 import { resolve } from "node:path";
 import test from "node:test";
 import {
+  buildBatchDownloadFilename,
   buildPaperAssetPaths,
   buildPaperRecordSnippet,
   buildSessionAssetPlan,
@@ -35,6 +36,11 @@ test("新增真题时会生成稳定的文件路径和标题", () => {
     pdfPath: "/papers/2026/06/cet4-2026-06-set-02.pdf",
     previewImagePath: "/previews/2026/06/cet4-2026-06-set-02.png"
   });
+});
+
+test("批量下载会生成面向用户的中文文件名", () => {
+  assert.equal(buildBatchDownloadFilename(2025, 12, 1), "2025年12月第1套.pdf");
+  assert.equal(buildBatchDownloadFilename(2024, 6, 3), "2024年6月第3套.pdf");
 });
 
 test("新增真题记录会按年份倒序、月份倒序、套数正序排序", () => {

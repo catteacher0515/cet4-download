@@ -37,6 +37,10 @@ test("真题下载页输出年份分组和 PDF 下载链接", () => {
   assert.match(papersHtml, /2025年12月英语四级真题\(第2套\)/);
   assert.match(papersHtml, /2025年12月英语四级真题\(第3套\)/);
   assert.match(papersHtml, /下载 PDF/);
+  assert.match(papersHtml, /批量下载/);
+  assert.match(papersHtml, /批量下载真题/);
+  assert.match(papersHtml, /开始下载/);
+  assert.match(papersHtml, /全选全部真题/);
   assert.match(papersHtml, /papers\/2025\/12\/cet4-2025-12-set-01\.pdf/);
   assert.match(papersHtml, /papers\/2025\/12\/1\//);
   assert.doesNotMatch(papersHtml, /Coming Soon/);

@@ -38,6 +38,10 @@ export function buildPaperAssetPaths(year: number, month: 6 | 12, setNumber: num
   };
 }
 
+export function buildBatchDownloadFilename(year: number, month: 6 | 12, setNumber: number): string {
+  return `${year}年${month}月第${setNumber}套.pdf`;
+}
+
 export function buildSessionAssetPlan(year: number, month: 6 | 12) {
   return [1, 2, 3].map((setNumber) => buildPaperAssetPaths(year, month, setNumber));
 }

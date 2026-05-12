@@ -1,9 +1,19 @@
 ---
 import PaperCard from "../components/PaperCard.astro";
-import { groupPapersBySession, papers } from "../data/cet4";
+import { buildBatchDownloadFilename, groupPapersBySession, papers } from "../data/cet4";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import papersBatchDownloadScript from "../scripts/papers-batch-download.ts?url";
 
 const groups = groupPapersBySession(papers);
+const batchDownloadPapers = groups.flatMap((group) =>
+  group.papers.map((paper) => ({
+    id: paper.id,
+    title: paper.title,
+    pdfPath: paper.pdfPath,
+    sessionLabel: `${paper.year}年${paper.month === 12 ? "12月" : "6月"}`,
+    batchFilename: buildBatchDownloadFilename(paper.year, paper.month, paper.setNumber)
+  }))
+);
 ---
 
 <BaseLayout
@@ -29,6 +39,12 @@ const groups = groupPapersBySession(papers);
     <p class="papers-hero__copy">
       点击卡片主体进入试卷预览页，点击按钮直接下载 PDF。先把“看试卷”和“下试卷”这两条路径清晰分开。
     </p>
+
+    <div class="papers-hero__actions">
+      <button class="papers-hero__batch-button" type="button" data-batch-download-open>
+        批量下载
+      </button>
+    </div>
   </section>
 
   {groups.map((group) => (
@@ -53,4 +69,67 @@ const groups = groupPapersBySession(papers);
       </p>
     </div>
   </section>
+
+  <dialog class="batch-download-dialog" data-batch-download-dialog aria-labelledby="batch-download-title">
+    <form class="batch-download-dialog__surface" method="dialog">
+      <div class="batch-download-dialog__header">
+        <div>
+          <p class="batch-download-dialog__eyebrow">批量下载</p>
+          <h2 class="batch-download-dialog__title" id="batch-download-title">批量下载真题</h2>
+        </div>
+        <button class="batch-download-dialog__close" type="button" data-batch-download-close aria-label="关闭弹窗">
+          ×
+        </button>
+      </div>
+
+      <p class="batch-download-dialog__copy">
+        默认全选全部真题。你也可以只勾选自己需要的年份和套题，最后会打包成一个 zip 包下载。
+      </p>
+
+      <label class="batch-download-dialog__master">
+        <input type="checkbox" checked data-batch-download-select-all />
+        <span>全选全部真题</span>
+      </label>
+
+      <p class="batch-download-dialog__summary" data-batch-download-summary>
+        已选 {batchDownloadPapers.length} 套真题
+      </p>
+
+      <div class="batch-download-dialog__groups">
+        {groups.map((group) => (
+          <section class="batch-download-group">
+            <h3 class="batch-download-group__title">{group.year}年 {group.month}月</h3>
+            <div class="batch-download-group__list">
+              {group.papers.map((paper) => (
+                <label class="batch-download-item">
+                  <input
+                    type="checkbox"
+                    checked
+                    value={paper.id}
+                    data-batch-download-item
+                  />
+                  <span class="batch-download-item__meta">{buildBatchDownloadFilename(paper.year, paper.month, paper.setNumber)}</span>
+                </label>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+
+      <div class="batch-download-dialog__footer">
+        <p class="batch-download-dialog__status" data-batch-download-status aria-live="polite"></p>
+        <div class="batch-download-dialog__actions">
+          <button class="batch-download-dialog__secondary" type="button" data-batch-download-close>
+            取消
+          </button>
+          <button class="batch-download-dialog__primary" type="button" data-batch-download-start>
+            开始下载
+          </button>
+        </div>
+      </div>
+    </form>
+  </dialog>
+
+  <script id="papers-batch-download-data" type="application/json" set:html={JSON.stringify(batchDownloadPapers)}></script>
+  <script type="module" src={papersBatchDownloadScript}></script>
 </BaseLayout>
