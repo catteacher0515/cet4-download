@@ -2,7 +2,6 @@
 import PaperCard from "../components/PaperCard.astro";
 import { buildBatchDownloadFilename, groupPapersBySession, papers } from "../data/cet4";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import papersBatchDownloadScript from "../scripts/papers-batch-download.ts?url";
 import { withBase } from "../utils/paths";
 
 const groups = groupPapersBySession(papers);
@@ -133,5 +132,7 @@ const batchDownloadPapers = groups.flatMap((group) =>
   </dialog>
 
   <script id="papers-batch-download-data" type="application/json" set:html={JSON.stringify(batchDownloadPapers)}></script>
-  <script type="module" src={papersBatchDownloadScript}></script>
+  <script>
+    import "../scripts/papers-batch-download.ts";
+  </script>
 </BaseLayout>
