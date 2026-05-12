@@ -111,6 +111,8 @@ const mobilePreviewPages = Array.from({ length: mobilePageCount }, (_, index) =>
         />
         <audio
           class="reader-audio-bar__media"
+          controlsList="nodownload noplaybackrate"
+          playsinline
           preload="metadata"
           data-audio-media
           src={withBase(paper.audioPath, currentBase)}
