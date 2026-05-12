@@ -1,4 +1,4 @@
-# CET4 Download
+<img width="1470" height="956" alt="image" src="https://github.com/user-attachments/assets/863fa152-57e7-40b3-98e4-2dce1dc8bfe5" /># CET4 Download
 
 一个面向英语四级用户的纯工具站。
 
@@ -19,6 +19,10 @@
 - 已接入的真题可在预览页底部直接播放听力
 - 站点为静态部署，适合长期低维护运行
 
+<img width="1470" height="956" alt="image" src="https://github.com/user-attachments/assets/643b8a30-0205-4291-886b-f619cb52c934" />
+<img width="1470" height="956" alt="image" src="https://github.com/user-attachments/assets/173d5367-c79d-439f-a116-c72421868690" />
+
+
 ## 当前内容范围
 
 - 当前已收录 `2021 - 2025` 的四级真题，共 `30` 套
@@ -27,6 +31,9 @@
   - PDF 下载
   - 部分真题的听力播放
 - 答案与解析暂未纳入当前版本
+
+<img width="2940" height="1912" alt="3452a2dba1cc07bd8413c3b7d7a3de44" src="https://github.com/user-attachments/assets/9b4f1954-6f07-4932-b937-8bdc802fca1d" />
+
 
 ## 技术栈
 
@@ -266,7 +273,3 @@ node scripts/generate-mobile-preview-pages.ts
 - 新增 PDF 后，优先执行 `npm run validate:content && npm run test && npm run build`
 - 如果更新了整站真题集合，记得重新生成默认批量下载 zip
 - 如果替换了 PDF，为了保证移动端体验，记得重新生成分页预览图
-
-## License
-
-当前仓库未单独声明开源许可证。
