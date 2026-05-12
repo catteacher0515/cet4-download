@@ -31,9 +31,27 @@ function createCanvasShell(pageNumber: number) {
 }
 
 function getScale(container: HTMLElement, viewportWidth: number) {
-  const horizontalPadding = 120;
-  const availableWidth = Math.max(container.clientWidth - horizontalPadding, 320);
-  return (availableWidth / viewportWidth) * 0.84;
+  const isCompactViewport = window.innerWidth <= 768;
+  const horizontalPadding = isCompactViewport ? 28 : 120;
+  const minWidth = isCompactViewport ? 220 : 320;
+  const availableWidth = Math.max(container.clientWidth - horizontalPadding, minWidth);
+  const fitRatio = isCompactViewport ? 0.98 : 0.84;
+
+  return (availableWidth / viewportWidth) * fitRatio;
+}
+
+function shouldApplyDarkTheme() {
+  return window.innerWidth > 768;
+}
+
+function getOutputScale() {
+  const baseScale = window.devicePixelRatio || 1;
+
+  if (window.innerWidth <= 768) {
+    return Math.min(baseScale, 1.5);
+  }
+
+  return Math.min(baseScale, 2);
 }
 
 function applyDarkTheme(canvas: HTMLCanvasElement) {
@@ -95,7 +113,7 @@ async function renderPage(
     throw new Error("无法初始化 PDF 渲染上下文");
   }
 
-  const outputScale = window.devicePixelRatio || 1;
+  const outputScale = getOutputScale();
 
   canvas.width = Math.floor(viewport.width * outputScale);
   canvas.height = Math.floor(viewport.height * outputScale);
@@ -111,7 +129,9 @@ async function renderPage(
     viewport
   }).promise;
 
-  applyDarkTheme(canvas);
+  if (shouldApplyDarkTheme()) {
+    applyDarkTheme(canvas);
+  }
 }
 
 async function renderDocument(state: ReaderState) {
