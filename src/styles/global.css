@@ -949,6 +949,14 @@ img {
     linear-gradient(180deg, #252525 0%, #1c1c1c 100%);
 }
 
+.reader-mobile-preview {
+  display: none;
+  min-height: calc(100vh - 190px);
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.03), transparent 16%),
+    linear-gradient(180deg, #252525 0%, #1c1c1c 100%);
+}
+
 .reader-pdfjs__meta {
   position: sticky;
   top: 0;
@@ -986,6 +994,28 @@ img {
   border-radius: 4px;
   background: #2b2b2b;
   box-shadow: none;
+}
+
+.reader-mobile-preview__pages {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 16px 14px 24px;
+}
+
+.reader-mobile-preview__page {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+}
+
+.reader-mobile-preview__page img {
+  display: block;
+  width: min(100%, 920px);
+  height: auto;
+  border-radius: 4px;
+  background: #2b2b2b;
 }
 
 .reader-audio-bar {
@@ -1207,6 +1237,15 @@ img {
     min-height: calc(100vh - 278px);
   }
 
+  .reader-pdfjs {
+    display: none;
+  }
+
+  .reader-mobile-preview {
+    display: block;
+    min-height: calc(100vh - 278px);
+  }
+
   .reader-pdfjs__meta {
     padding: 10px 14px;
   }
@@ -1216,7 +1255,17 @@ img {
     padding: 14px 10px 20px;
   }
 
+  .reader-mobile-preview__pages {
+    gap: 8px;
+    padding: 14px 10px 20px;
+  }
+
   .reader-pdfjs__canvas {
+    border-radius: 2px;
+  }
+
+  .reader-mobile-preview__page img {
+    width: 100%;
     border-radius: 2px;
   }
 

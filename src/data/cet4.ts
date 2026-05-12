@@ -42,6 +42,15 @@ export function buildBatchDownloadFilename(year: number, month: 6 | 12, setNumbe
   return `${year}年${month}月第${setNumber}套.pdf`;
 }
 
+export function buildPaperPreviewPagePath(year: number, month: 6 | 12, setNumber: number, pageNumber: number): string {
+  const paddedMonth = formatPaperMonth(month);
+  const paddedSetNumber = formatPaperSetNumber(setNumber);
+  const paddedPageNumber = String(pageNumber).padStart(2, "0");
+  const baseName = `cet4-${year}-${paddedMonth}-set-${paddedSetNumber}`;
+
+  return `/previews/${year}/${paddedMonth}/${baseName}-pages/page-${paddedPageNumber}.png`;
+}
+
 export function buildSessionAssetPlan(year: number, month: 6 | 12) {
   return [1, 2, 3].map((setNumber) => buildPaperAssetPaths(year, month, setNumber));
 }

@@ -5,6 +5,7 @@ import test from "node:test";
 import {
   buildBatchDownloadFilename,
   buildPaperAssetPaths,
+  buildPaperPreviewPagePath,
   buildPaperRecordSnippet,
   buildSessionAssetPlan,
   groupPapersBySession,
@@ -41,6 +42,17 @@ test("新增真题时会生成稳定的文件路径和标题", () => {
 test("批量下载会生成面向用户的中文文件名", () => {
   assert.equal(buildBatchDownloadFilename(2025, 12, 1), "2025年12月第1套.pdf");
   assert.equal(buildBatchDownloadFilename(2024, 6, 3), "2024年6月第3套.pdf");
+});
+
+test("移动端分页预览会生成稳定的页面图片路径", () => {
+  assert.equal(
+    buildPaperPreviewPagePath(2025, 12, 1, 3),
+    "/previews/2025/12/cet4-2025-12-set-01-pages/page-03.png"
+  );
+  assert.equal(
+    buildPaperPreviewPagePath(2024, 6, 2, 11),
+    "/previews/2024/06/cet4-2024-06-set-02-pages/page-11.png"
+  );
 });
 
 test("新增真题记录会按年份倒序、月份倒序、套数正序排序", () => {

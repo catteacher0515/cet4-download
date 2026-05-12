@@ -52,8 +52,12 @@ test("试卷预览页输出在线预览和下载入口", () => {
 
   assert.match(previewHtml, /2025年12月英语四级真题\(第1套\)/);
   assert.match(previewHtml, /reader-pdfjs/);
+  assert.match(previewHtml, /reader-mobile-preview/);
+  assert.match(previewHtml, /reader-mobile-preview__page/);
   assert.match(previewHtml, /href="\/cet4-download\/papers"/);
   assert.match(previewHtml, /data-pdf-url="\/cet4-download\/papers\/2025\/12\/cet4-2025-12-set-01\.pdf"/);
+  assert.match(previewHtml, /data-mobile-preview-root/);
+  assert.match(previewHtml, /page-01\.png/);
   assert.doesNotMatch(previewHtml, /reader-topbar/);
   assert.match(previewHtml, /reader-audio-bar/);
   assert.match(previewHtml, /reader-audio-bar__toggle/);
