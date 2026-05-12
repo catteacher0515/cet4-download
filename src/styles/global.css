@@ -362,6 +362,87 @@ img {
   font-size: 13px;
 }
 
+.about-card__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 18px;
+  margin-top: 24px;
+  border-radius: 999px;
+  background: var(--accent-dark);
+  color: #fff8ef;
+  font-size: 14px;
+  font-weight: 700;
+  align-self: flex-start;
+}
+
+.about-grid {
+  display: none;
+}
+
+.about-notes {
+  padding-top: 40px;
+  padding-bottom: 18px;
+}
+
+.about-notes__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.about-note {
+  padding: 24px;
+  border-radius: 24px;
+  border: 1px solid rgba(74, 56, 29, 0.1);
+  background: rgba(255, 252, 247, 0.84);
+}
+
+.about-note__title {
+  margin: 0;
+  font-size: clamp(1.55rem, 2.5vw, 2.2rem);
+  line-height: 1.16;
+}
+
+.about-note__body {
+  margin-top: 18px;
+}
+
+.about-note__body p {
+  margin: 0;
+  color: #564a3d;
+  font-size: 16px;
+  line-height: 1.85;
+}
+
+.about-footer-note {
+  padding-top: 0;
+  padding-bottom: 40px;
+}
+
+.about-footer-note__panel {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 24px;
+  border-radius: 24px;
+  border: 1px solid rgba(74, 56, 29, 0.1);
+  background:
+    linear-gradient(180deg, rgba(255, 250, 244, 0.98), rgba(244, 235, 220, 0.82));
+  text-align: center;
+}
+
+.about-footer-note__line {
+  margin: 0;
+  color: #564a3d;
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+.about-footer-note__line + .about-footer-note__line {
+  margin-top: 8px;
+}
+
 .papers-section__head {
   display: flex;
   justify-content: space-between;
@@ -770,7 +851,8 @@ img {
   }
 
   .hero-grid,
-  .entry-grid {
+  .entry-grid,
+  .about-notes__grid {
     grid-template-columns: 1fr;
   }
 
@@ -824,6 +906,31 @@ img {
     grid-template-columns: 1fr;
     gap: 8px;
     margin: 22px 0 18px;
+  }
+
+  .about-notes {
+    padding-top: 28px;
+    padding-bottom: 12px;
+  }
+
+  .about-note,
+  .about-footer-note__panel {
+    padding: 20px;
+    border-radius: 22px;
+  }
+
+  .about-card__link {
+    width: 100%;
+  }
+
+  .about-note__body p,
+  .about-footer-note__line {
+    font-size: 15px;
+  }
+
+  .about-footer-note {
+    padding-top: 0;
+    padding-bottom: 28px;
   }
 
   .papers-hero,

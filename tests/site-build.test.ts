@@ -17,6 +17,11 @@ test("首页和关于页会出现在构建产物中", () => {
   assert.match(homeHtml, /直接下载/);
   assert.match(homeHtml, /进入真题下载页/);
   assert.match(aboutHtml, /关于本站/);
+  assert.match(aboutHtml, /这个站会持续维护什么/);
+  assert.match(aboutHtml, /这个站适合谁/);
+  assert.match(aboutHtml, /如果你想第一时间拿到新真题更新，可以在小红书关注萍雨/);
+  assert.doesNotMatch(aboutHtml, /把资料更直接地交给你/);
+  assert.doesNotMatch(aboutHtml, /更新同步/);
 });
 
 test("真题下载页输出年份分组和 PDF 下载链接", () => {

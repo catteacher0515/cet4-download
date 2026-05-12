@@ -6,20 +6,45 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   title="关于本站"
   description="了解四级真题工具站的定位与维护方式。"
   pathname="/about"
+  hideFooter={true}
 >
-  <section class="page-section">
-    <h1 class="page-title">关于本站</h1>
-    <p class="page-copy">
-      这个站点的目标不是做复杂功能，而是把四级真题 PDF 以最少阻力交给用户。
-    </p>
-  </section>
+  <section class="page-section about-notes">
+    <div class="about-notes__grid">
+      <article class="about-note">
+        <h2 class="about-note__title">这个站会持续维护什么</h2>
+        <div class="about-note__body">
+          <p>每年6月和12月考试结束后，</p>
+          <p>会继续补充新的真题资料。</p>
+          <p>当前核心内容是试卷PDF和对应听力，</p>
+          <p>后续可能补充近几年真题里的高频词。</p>
+          <p>但这个站不会往复杂产品方向走，</p>
+          <p>核心目标始终是把资料更直接地交给用户。</p>
+        </div>
+      </article>
 
-  <section class="page-section">
-    <div class="panel">
-      <h2 class="section-title">维护方式</h2>
-      <p class="page-copy">
-        每年新增 6 月和 12 月资料时，只需要补资源文件和一条真题记录。后续如果新增高频词汇，也会用独立页面承载。
-      </p>
+      <article class="about-note">
+        <h2 class="about-note__title">这个站适合谁</h2>
+        <div class="about-note__body">
+          <p>如果你只是想快速拿到真题，</p>
+          <p>不想折腾中间跳转、不想被网盘和广告打断，</p>
+          <p>也希望能在网站里直接预览内容，这个站就是为你准备的。</p>
+        </div>
+      </article>
     </div>
+  </section>
+  
+  <section class="page-section about-footer-note">
+    <article class="about-footer-note__panel">
+      <p class="about-footer-note__line">如果你想第一时间拿到新真题更新，可以在小红书关注萍雨。</p>
+      <p class="about-footer-note__line">后续补充新年份真题和高频词时，也会优先在那里同步。</p>
+      <a
+        class="about-card__link"
+        href="https://www.xiaohongshu.com/user/profile/608cf7c6000000000101c236"
+        target="_blank"
+        rel="noreferrer"
+      >
+        去小红书看看
+      </a>
+    </article>
   </section>
 </BaseLayout>
