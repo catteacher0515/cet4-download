@@ -57,7 +57,7 @@ test("试卷预览页输出在线预览和下载入口", () => {
   assert.match(previewHtml, /href="\/cet4-download\/papers"/);
   assert.match(previewHtml, /data-pdf-url="\/cet4-download\/papers\/2025\/12\/cet4-2025-12-set-01\.pdf"/);
   assert.match(previewHtml, /data-mobile-preview-root/);
-  assert.match(previewHtml, /page-01\.png/);
+  assert.match(previewHtml, /page-01\.jpg/);
   assert.doesNotMatch(previewHtml, /reader-topbar/);
   assert.match(previewHtml, /reader-audio-bar/);
   assert.match(previewHtml, /reader-audio-bar__toggle/);
@@ -66,7 +66,7 @@ test("试卷预览页输出在线预览和下载入口", () => {
   assert.doesNotMatch(previewHtml, /iframe/);
   assert.match(previewHtml, /听力音频/);
   assert.match(previewHtml, /audio/);
-  assert.match(previewHtml, /\/cet4-download\/audio\/2025\/12\/cet4-2025-12-set-01\.mp4/);
+  assert.match(previewHtml, /\/cet4-download\/audio\/2025\/12\/cet4-2025-12-set-01\.m4a/);
 });
 
 test("首页会强调真题下载与后续高频词汇扩展方向", () => {

@@ -28,15 +28,17 @@ async function generatePreviewPagesForPaper(previewRoot: string, pdfPath: string
   const outputPrefix = resolve(previewRoot, "page");
 
   await execFileAsync(PDFTOPPM_PATH, [
-    "-png",
-    "-r",
-    "110",
+    "-jpeg",
+    "-jpegopt",
+    "quality=82,progressive=y,optimize=y",
+    "-scale-to-x",
+    "760",
     pdfPath,
     outputPrefix
   ]);
 
   const files = (await readdir(previewRoot))
-    .filter((file) => file.endsWith(".png"))
+    .filter((file) => file.endsWith(".jpg"))
     .sort();
 
   if (files.length !== pageCount) {
@@ -44,7 +46,7 @@ async function generatePreviewPagesForPaper(previewRoot: string, pdfPath: string
   }
 
   for (const [index, file] of files.entries()) {
-    const expectedName = `page-${String(index + 1).padStart(2, "0")}.png`;
+    const expectedName = `page-${String(index + 1).padStart(2, "0")}.jpg`;
 
     if (file === expectedName) {
       continue;

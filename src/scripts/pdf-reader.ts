@@ -298,3 +298,14 @@ function initAudioBar(root: HTMLElement) {
 }
 
 document.querySelectorAll<HTMLElement>(".reader-audio-bar").forEach(initAudioBar);
+
+document.querySelectorAll<HTMLImageElement>(".reader-mobile-preview__page img").forEach((image) => {
+  image.addEventListener(
+    "error",
+    () => {
+      image.closest(".reader-mobile-preview__page")?.setAttribute("data-image-failed", "true");
+      image.alt = `${image.alt}（加载失败，请下拉刷新或直接下载 PDF）`;
+    },
+    { once: true }
+  );
+});

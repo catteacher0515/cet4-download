@@ -74,7 +74,13 @@ const mobilePreviewPages = Array.from({ length: mobilePageCount }, (_, index) =>
         <div class="reader-mobile-preview__pages">
           {mobilePreviewPages.map((pageSrc, index) => (
             <figure class="reader-mobile-preview__page">
-              <img src={pageSrc} alt={`${paper.title} 第${index + 1}页`} loading={index === 0 ? "eager" : "lazy"} />
+              <img
+                src={pageSrc}
+                alt={`${paper.title} 第${index + 1}页`}
+                loading={index < 2 ? "eager" : "lazy"}
+                decoding="async"
+                fetchpriority={index === 0 ? "high" : "auto"}
+              />
             </figure>
           ))}
         </div>
@@ -103,8 +109,12 @@ const mobilePreviewPages = Array.from({ length: mobilePageCount }, (_, index) =>
           data-audio-seek
           aria-label="音频播放进度"
         />
-        <audio class="reader-audio-bar__media" preload="metadata" data-audio-media>
-          <source src={withBase(paper.audioPath, currentBase)} type="audio/mp4" />
+        <audio
+          class="reader-audio-bar__media"
+          preload="metadata"
+          data-audio-media
+          src={withBase(paper.audioPath, currentBase)}
+        >
           你的浏览器暂不支持音频播放，请直接下载后使用。
         </audio>
       </aside>

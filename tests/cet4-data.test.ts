@@ -47,11 +47,11 @@ test("批量下载会生成面向用户的中文文件名", () => {
 test("移动端分页预览会生成稳定的页面图片路径", () => {
   assert.equal(
     buildPaperPreviewPagePath(2025, 12, 1, 3),
-    "/previews/2025/12/cet4-2025-12-set-01-pages/page-03.png"
+    "/previews/2025/12/cet4-2025-12-set-01-pages/page-03.jpg"
   );
   assert.equal(
     buildPaperPreviewPagePath(2024, 6, 2, 11),
-    "/previews/2024/06/cet4-2024-06-set-02-pages/page-11.png"
+    "/previews/2024/06/cet4-2024-06-set-02-pages/page-11.jpg"
   );
 });
 
